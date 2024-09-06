@@ -1,6 +1,10 @@
 #pragma once
 
+#if !defined(__SSE3__) && !defined(__SSE2__) && !defined(__SSE1__)
 #include <arm_neon.h>
+#else
+#include "NEON2SSE.h"
+#endif
 #include "opencv2/video/tracking.hpp"
 
 #define  CV_DESCALE(x,n)     (((x) + (1 << ((n)-1))) >> (n))

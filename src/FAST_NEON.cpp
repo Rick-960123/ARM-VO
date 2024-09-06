@@ -1,5 +1,9 @@
 #include "FAST_NEON.hpp"
+#if !defined(__SSE3__) && !defined(__SSE2__) && !defined(__SSE1__)
 #include <arm_neon.h>
+#else
+#include "NEON2SSE.h"
+#endif
 
 
 static const int offsets16[][2] =

@@ -1,7 +1,12 @@
 #ifndef FAST_NEON_HPP_INCLUDED
 #define FAST_NEON_HPP_INCLUDED
 
+#if !defined(__SSE3__) && !defined(__SSE2__) && !defined(__SSE1__)
 #include <arm_neon.h>
+#else
+#include "NEON2SSE.h"
+#endif
+
 #include <opencv2/features2d.hpp>
 
 int cornerScore(const uchar* ptr, const int pixel[], int threshold);
