@@ -29,7 +29,8 @@ void ARM_VO::loadSetting(const std::string& paramsFileName)
     }
 
     float fx = fs["fx"], fy = fs["fy"], cx = fs["cx"], cy = fs["cy"];
-    cameraMatrix=(cv::Mat_<float>(3,3)<<fx,0,cx,0,fy,cy,0,0,1);
+    float img_w = fs["img_width"], img_h = fs["img_height"];
+    cameraMatrix=(cv::Mat_<float>(3,3)<<fx * img_w,0,cx * img_w,0,fy * img_h,cy * img_h,0,0,1);
 
     maxFeatures = fs["nFeatures"];
     Detector.setMaxFeatures(maxFeatures);
@@ -74,6 +75,12 @@ void ARM_VO::init(const cv::Mat& firstFrame)
 void ARM_VO::update(const cv::Mat& currentFrame)
 {
     std::vector<cv::Point2f> curr_keypoints;
+
+    cv::imshow("prev_frame", prev_frame);
+    cv::waitKey(0);
+    cv::imshow("currentFrame", currentFrame);
+    cv::waitKey(0);
+
     KLT.track(prev_frame, currentFrame, prev_keypoints, curr_keypoints);
 
     cv::Mat F, H, mask;

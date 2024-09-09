@@ -4,7 +4,7 @@
 using namespace cv;
 using namespace std;
 
-int main(int argc, char* argv[])
+int main1(int argc, char* argv[])
 {
     if (argc<3)
     {
